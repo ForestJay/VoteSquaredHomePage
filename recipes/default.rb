@@ -16,17 +16,12 @@ service "httpd" do
   action [:enable, :start]
 end
 
-cookbook_file "/var/www/html/index.html" do 
-  source "index.html" 
-  mode "0644"
-end
-
-cookbook_file "/var/www/html/favicon.ico" do 
-  source "favicon.ico" 
-  mode "0644"
-end
-
-cookbook_file "/var/www/html/Logo.png" do 
-  source "Logo.png" 
-  mode "0644"
+# Make sure we have the needed files!
+file_list = ['index.html','favicon.ico','Logo.png','twitter-logo.png','fb-logo.png','g+-logo.png']
+  
+file_list.each do |file|
+  cookbook_file "/var/www/html/#{file}" do 
+    source file 
+    mode "0644"
+  end  
 end
